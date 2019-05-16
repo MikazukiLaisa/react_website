@@ -2,6 +2,9 @@ import React from 'react';
 import logo from './logo.svg';
 import './App.css';
 import { homedir } from 'os';
+import remark from 'remark'
+import reactRenderer from 'remark-react'
+
 
 function App() {
   return (
@@ -13,7 +16,7 @@ class Main extends React.Component{
   constructor(props) {
     super(props);
     this.handleMainpageChange = this.handleMainpageChange.bind(this);
-    this.state = {mainpage: "hoge"}
+    this.state = {mainpage: "hoge", text: "# Hello world"}
   }
 
   handleMainpageChange(mainpage) {
@@ -29,11 +32,11 @@ class Main extends React.Component{
   render(){
     return(
       <div>
-        <MenuButton text="Home" link={this.home} onChange={this.handleMainpageChange} />
-        <MenuButton text="Profile" link={this.profile} onChange={this.handleMainpageChange} />
-        <MenuButton text="Contact" link={this.contact} onChange={this.handleMainpageChange} />
-        <MenuButton text="Works" link={this.works} onChange={this.handleMainpageChange} />
-        <MenuButton text="Blog" link={this.blog} onChange={this.handleMainpageChange} />
+        <LoadPage text="Home" link={this.home} onChange={this.handleMainpageChange} />
+        <LoadPage text="Profile" link={this.profile} onChange={this.handleMainpageChange} />
+        <LoadPage text="Contact" link={this.contact} onChange={this.handleMainpageChange} />
+        <LoadPage text="Works" link={this.works} onChange={this.handleMainpageChange} />
+        <LoadPage text="Blog" link={this.blog} onChange={this.handleMainpageChange} />
         <div>
           {this.state.mainpage}
         </div>
@@ -74,6 +77,7 @@ function Works(){
     </div>
   );
 }
+
 class Blog extends React.Component{
   constructor(props) {
     super(props);
@@ -85,11 +89,7 @@ class Blog extends React.Component{
     this.setState({subpage});
   }
 
-  home = Home()
-  profile = Profile()
-  contact = Contact()
-  works = Works()
-  blog = <Blog />
+  blog1 = BlogContents()
 
   render(){
     return(
@@ -101,8 +101,8 @@ class Blog extends React.Component{
           </div>
           <div>
             <ul>
-              <li><MenuButton text="Profile" link={this.profile} onChange={this.handleSubpageChange} /></li>
-              <li><MenuButton text="Blog" link={this.blog} onChange={this.handleSubpageChange} /></li>
+              <li><LoadPage text="Hello my blog!" link={this.blog1} onChange={this.handleSubpageChange} /></li>
+              <li><LoadPage text="react is very fun!" link={this.blog2} onChange={this.handleSubpageChange} /></li>
             </ul>
           </div>
         </div>
@@ -111,7 +111,25 @@ class Blog extends React.Component{
   }
 }
 
-class MenuButton extends React.Component {
+function BlogContents(){
+  const text = "# hello world"
+  const text2 = loadFile("https://laisa.info/api/blog01.txt")
+  return(
+    <div>
+      {remark().use(reactRenderer).processSync(text2).contents}
+    </div>
+  )
+}
+function loadFile(fileName){
+  const httpObj = new XMLHttpRequest();
+  httpObj.open('GET',fileName+"?"+(new Date()).getTime(),true);
+  // ?以降はキャッシュされたファイルではなく、毎回読み込むためのもの
+  httpObj.send(null);
+  const text = httpObj.responseText
+  return(text);  
+}
+
+class LoadPage extends React.Component {
   constructor(props) {
     super(props);
     this.handleClick = this.handleClick.bind(this);
