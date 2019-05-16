@@ -5,9 +5,7 @@ import { homedir } from 'os';
 
 function App() {
   return (
-    <div>
-      <Main />
-    </div>
+    <Main />
   );
 }
 
@@ -24,12 +22,18 @@ class Main extends React.Component{
 
   home = Home()
   profile = Profile()
+  contact = Contact()
+  works = Works()
+  blog = <Blog />
 
   render(){
     return(
       <div>
-        <RenderButton text="Home" link={this.home} onChange={this.handleMainpageChange} />
-       <RenderButton text="Profile" link={this.profile} onChange={this.handleMainpageChange} />
+        <MenuButton text="Home" link={this.home} onChange={this.handleMainpageChange} />
+        <MenuButton text="Profile" link={this.profile} onChange={this.handleMainpageChange} />
+        <MenuButton text="Contact" link={this.contact} onChange={this.handleMainpageChange} />
+        <MenuButton text="Works" link={this.works} onChange={this.handleMainpageChange} />
+        <MenuButton text="Blog" link={this.blog} onChange={this.handleMainpageChange} />
        <div>
          {this.state.mainpage}
        </div>
@@ -41,20 +45,57 @@ class Main extends React.Component{
 function Home(){
   return(
     <div>
-    <a>this is home page</a>
+      <h1>Home</h1>
+      <a>welcome to my new website!</a><br />
+      <a>検証から、上のボタンを押したら、どこが変化しているのか確認できるよ！</a>
     </div>
   );
 }
 function Profile(){
   return(
     <div>
-    <a>this is Profile page</a><br />
-    <a>name: Mikazuki Laisa</a>
+      <h1>Profile</h1>
+      <a>name: Mikazuki_Laisa</a>
     </div>
   );
 }
+function Contact(){
+  return(
+    <div>
+      <h1>Contact</h1>
+      <a>mail: </a>
+    </div>
+  );
+}
+function Works(){
+  return(
+    <div>
+      <h1>Works</h1>
+    </div>
+  );
+}
+class Blog extends React.Component{
+  constructor(props) {
+    super(props);
+  }
+  render(){
+    return(
+      <div>
+        <h1>Blog</h1>
+        <div class="Blog-display">
+          <div>
+            article
+          </div>
+          <div>
+            submenu
+          </div>
+        </div>
+      </div>
+    )
+  }
+}
 
-class RenderButton extends React.Component {
+class MenuButton extends React.Component {
   constructor(props) {
     super(props);
     this.handleClick = this.handleClick.bind(this);
