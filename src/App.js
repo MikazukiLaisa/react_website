@@ -34,9 +34,9 @@ class Main extends React.Component{
         <MenuButton text="Contact" link={this.contact} onChange={this.handleMainpageChange} />
         <MenuButton text="Works" link={this.works} onChange={this.handleMainpageChange} />
         <MenuButton text="Blog" link={this.blog} onChange={this.handleMainpageChange} />
-       <div>
-         {this.state.mainpage}
-       </div>
+        <div>
+          {this.state.mainpage}
+        </div>
       </div>
     )
   }
@@ -47,7 +47,7 @@ function Home(){
     <div>
       <h1>Home</h1>
       <a>welcome to my new website!</a><br />
-      <a>検証から、上のボタンを押したら、どこが変化しているのか確認できるよ！</a>
+      <a>上のボタンを押したら、検証からどこが変化しているのか確認できるよ！</a>
     </div>
   );
 }
@@ -77,17 +77,33 @@ function Works(){
 class Blog extends React.Component{
   constructor(props) {
     super(props);
+    this.handleSubpageChange = this.handleSubpageChange.bind(this);
+    this.state = {subpage: "subpage"}
   }
+
+  handleSubpageChange(subpage) {
+    this.setState({subpage});
+  }
+
+  home = Home()
+  profile = Profile()
+  contact = Contact()
+  works = Works()
+  blog = <Blog />
+
   render(){
     return(
       <div>
         <h1>Blog</h1>
         <div class="Blog-display">
           <div>
-            article
+            {this.state.subpage}
           </div>
           <div>
-            submenu
+            <ul>
+              <li><MenuButton text="Profile" link={this.profile} onChange={this.handleSubpageChange} /></li>
+              <li><MenuButton text="Blog" link={this.blog} onChange={this.handleSubpageChange} /></li>
+            </ul>
           </div>
         </div>
       </div>
@@ -104,12 +120,11 @@ class MenuButton extends React.Component {
   handleClick(e) {
     this.props.onChange(this.props.link);
     e.preventDefault();
-    console.log('The link was clicked.');
   }
 
   render() {
     return (
-       <input type="button" value={this.props.text} onClick={this.handleClick}/>
+       <input type="button" class="btn-square-pop" value={this.props.text} onClick={this.handleClick}/>
     );
   }
 }
