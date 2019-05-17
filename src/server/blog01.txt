@@ -1,22 +1,22 @@
-#ポートフォワーディング -Rオプション
+# ポートフォワーディング -Rオプション
 
-##やりたいこと
+## やりたいこと
 　ポートフォワーディングでトンネルを掘り、
 　お家の外（LAN外）からでもRaspberry Piにアクセスできるようにする。
 　例：LAN外pc　→　（サーバー）　→　Raspberry Pi
 
-##環境
+## 環境
  - このはのVPS
   - Centos 7.5
   - 公開鍵認証設定済み（秘密鍵はローカルにDLする）
 
  - Raspberry Pi 3 Bモデル
 
-##Raspberry Piとサーバーの公開鍵認証の設定
+## Raspberry Piとサーバーの公開鍵認証の設定
 　ラズパイ側で鍵を生成して、公開鍵をサーバーのauthenticated_keysにscpでコピーする
 　（秘密鍵は、ローカルとラズパイで2種類生成されている。）
 
-##サーバーで10022番ポートを開放する
+## サーバーで10022番ポートを開放する
 ```
 $ vi /etc/ssh/sshd_config
 ```
@@ -31,7 +31,7 @@ $ systemctl restart sshd.service
 ```
 **忘れずにsshdの再起動を行う。**
 
-##ポートフォワーディングを行う
+## ポートフォワーディングを行う
 Raspberry Pi上で
 
 ```
@@ -40,7 +40,7 @@ Raspberry Pi上で
 **ユーザーはroot以外で行う。**
 **Raspberry PiのローカルIPの前に、pi@など付けない。**
 
-##LAN外pcからsshでサーバーのlocalhost 10022番ポートに接続する。
+## LAN外pcからsshでサーバーのlocalhost 10022番ポートに接続する。
 サーバーのターミナルで
 
 ```

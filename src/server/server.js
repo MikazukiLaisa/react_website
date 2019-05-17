@@ -1,5 +1,6 @@
 // express
 const express = require('express');
+const fs = require("fs");
 const app = express();
 
 app.use(function (req, res, next) {
@@ -13,11 +14,30 @@ app.use(function (req, res, next) {
 
 // GET
 app.get('/api', (req, res) => {
- res.send('Hello World!');
- console.log("ok");
+ 
+ res.send(read("./blog01.txt"));
 });
 
 // listen
 app.listen(3020, () => {
  console.log('Example app listening on port 3020!');
 });
+
+function read(filePath) {
+  var content = new String();
+  if(check(filePath)) {;
+    content = fs.readFileSync(filePath, 'utf8');
+  }
+  return content;
+};
+
+function check(filePath) {
+  var isExist = false;
+  try {
+    fs.statSync(filePath);
+    isExist = true;
+  } catch(err) {
+    isExist = false;
+  }
+  return isExist;
+}

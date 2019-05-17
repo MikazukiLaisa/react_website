@@ -1,0 +1,4 @@
+```
+$ systemctl restart sshd.service
+```
+**忘れずにsshdの再起動を行う。**

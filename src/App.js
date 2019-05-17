@@ -119,21 +119,12 @@ class Blog extends React.Component{
 }
 
 //関数じゃないとだめ
-function BlogContents(text2){
-  text2 = fetch("http://localhost:3020/api", {
-    mode: 'cors'
-  })
-    .then((response) => {
-      return response.statusText;
-    })
-    .then((text) => {
+function ConvertBlog(text){
       return(
         <div>
-          {text}
           {remark().use(reactRenderer).processSync(text).contents}
         </div>
     )
-  })
 }
 
 class LoadPageButton extends React.Component {
@@ -170,9 +161,11 @@ class LoadBlogButton extends React.Component {
       .then((response) => {
            return response.text();
       })
-      .then((mytext) => {
-          //これは１回目でいける。
-          this.setState({subContents: mytext});
+      .then((text) => {
+        return ConvertBlog(text)
+      })
+      .then((convertedText) => {
+          this.setState({subContents: convertedText});
           this.props.onChange(this.state.subContents);
       });
       e.preventDefault();
