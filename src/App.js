@@ -98,6 +98,7 @@ class Blog extends React.Component{
         <div class="Blog-display">
           <div>
             {this.state.subpage}
+            {this.blog1}
           </div>
           <div>
             <ul>
@@ -113,20 +114,31 @@ class Blog extends React.Component{
 
 function BlogContents(){
   const text = "# hello world"
-  const text2 = loadFile("https://laisa.info/api/blog01.txt")
+  const text2 = loadFile("http://localhost:3020/api")
   return(
     <div>
       {remark().use(reactRenderer).processSync(text2).contents}
     </div>
   )
 }
-function loadFile(fileName){
-  const httpObj = new XMLHttpRequest();
-  httpObj.open('GET',fileName+"?"+(new Date()).getTime(),true);
+function loadFile(fileurl){
+  console.log("ok")
+  const xhr = new XMLHttpRequest();
+  //httpObj.open('GET',fileName+"?"+(new Date()).getTime(),true);
+  xhr.open('GET',fileurl,true);
   // ?以降はキャッシュされたファイルではなく、毎回読み込むためのもの
-  httpObj.send(null);
-  const text = httpObj.responseText
-  return(text);  
+  xhr.send(null);
+  var text;
+  xhr.onload = function () {
+    if (xhr.readyState === xhr.DONE) {
+        if (xhr.status === 200) {
+            text = xhr.responseText
+            console.log(xhr.response);
+            console.log(xhr.responseText);
+            return(xhr.responseText);
+        }
+    }
+  };
 }
 
 class LoadPage extends React.Component {
