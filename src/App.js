@@ -32,11 +32,11 @@ class Main extends React.Component{
   render(){
     return(
       <div>
-        <LoadPage text="Home" link={this.home} onChange={this.handleMainpageChange} />
-        <LoadPage text="Profile" link={this.profile} onChange={this.handleMainpageChange} />
-        <LoadPage text="Contact" link={this.contact} onChange={this.handleMainpageChange} />
-        <LoadPage text="Works" link={this.works} onChange={this.handleMainpageChange} />
-        <LoadPage text="Blog" link={this.blog} onChange={this.handleMainpageChange} />
+        <LoadPageButton text="Home" mainContents={this.home} onChange={this.handleMainpageChange} />
+        <LoadPageButton text="Profile" mainContents={this.profile} onChange={this.handleMainpageChange} />
+        <LoadPageButton text="Contact" mainContents={this.contact} onChange={this.handleMainpageChange} />
+        <LoadPageButton text="Works" mainContents={this.works} onChange={this.handleMainpageChange} />
+        <LoadPageButton text="Blog" mainContents={this.blog} onChange={this.handleMainpageChange} />
         <div>
           {this.state.mainpage}
         </div>
@@ -89,8 +89,12 @@ class Blog extends React.Component{
     this.setState({subpage});
   }
 
-  blog1 = BlogContents()
+  //ここでクラスで呼ぶと、１つしか生成されない
+  // blog1 = BlogContents("this is blog#1");
+  // blog2 = BlogContents("this is blog#2");
 
+  blog1 = <div>wakaran</div>
+  
   render(){
     return(
       <div>
@@ -98,12 +102,11 @@ class Blog extends React.Component{
         <div class="Blog-display">
           <div>
             {this.state.subpage}
-            {this.blog1}
           </div>
           <div>
             <ul>
-              <li><LoadPage text="Hello my blog!" link={this.blog1} onChange={this.handleSubpageChange} /></li>
-              <li><LoadPage text="react is very fun!" link={this.blog2} onChange={this.handleSubpageChange} /></li>
+              <li><LoadBlogButton text="Hello my blog!" subContents={this.blog1} url="http://localhost:3020/api" onChange={this.handleSubpageChange} /></li>
+              <li><LoadBlogButton text="react is very fun!" subContents={this.blog2} onChange={this.handleSubpageChange} /></li>
             </ul>
           </div>
         </div>
@@ -112,49 +115,74 @@ class Blog extends React.Component{
   }
 }
 
-function BlogContents(){
-  const text = "# hello world"
-  const text2 = loadFile("http://localhost:3020/api")
-  return(
-    <div>
-      {remark().use(reactRenderer).processSync(text2).contents}
-    </div>
-  )
-}
-function loadFile(fileurl){
-  console.log("ok")
-  const xhr = new XMLHttpRequest();
-  //httpObj.open('GET',fileName+"?"+(new Date()).getTime(),true);
-  xhr.open('GET',fileurl,true);
-  // ?以降はキャッシュされたファイルではなく、毎回読み込むためのもの
-  xhr.send(null);
-  var text;
-  xhr.onload = function () {
-    if (xhr.readyState === xhr.DONE) {
-        if (xhr.status === 200) {
-            text = xhr.responseText
-            console.log(xhr.response);
-            console.log(xhr.responseText);
-            return(xhr.responseText);
-        }
-    }
-  };
+//関数じゃないとだめ
+function BlogContents(text2){
+  text2 = fetch("http://localhost:3020/api", {
+    mode: 'cors'
+  })
+    .then((response) => {
+      return response.statusText;
+    })
+    .then((text) => {
+      return(
+        <div>
+          {text}
+          {remark().use(reactRenderer).processSync(text).contents}
+        </div>
+    )
+  })
 }
 
-class LoadPage extends React.Component {
+
+
+
+
+class LoadPageButton extends React.Component {
   constructor(props) {
     super(props);
     this.handleClick = this.handleClick.bind(this);
   }
 
   handleClick(e) {
-    this.props.onChange(this.props.link);
+    this.props.onChange(this.props.mainContents);
     e.preventDefault();
   }
 
   render() {
     return (
        <input type="button" class="btn-square-pop" value={this.props.text} onClick={this.handleClick}/>
+    );
+  }
+}
+
+class LoadBlogButton extends React.Component {
+  constructor(props) {
+    super(props);
+    this.handleClick = this.handleClick.bind(this);
+    this.state = {subContents: ""}
+  }
+  
+
+  handleClick(e) {
+    fetch("http://localhost:3020/api", {
+      mode: 'cors'
+    })
+      .then((response) => {
+          return response.text();
+      })
+      .then((mytext) => {
+          this.setState({subContents: mytext});
+      });
+      this.props.onChange(this.props.subContents);
+      e.preventDefault();
+  }
+
+  render() {
+    return (
+      <div>
+        <input type="button" class="btn-square-pop" value={this.props.text} onClick={this.handleClick}/>
+        {this.state.subContents}
+      </div>
     );
   }
 }
