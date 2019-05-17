@@ -86,6 +86,7 @@ class Blog extends React.Component{
   }
 
   handleSubpageChange(subpage) {
+    console.log("handle subpage change")
     this.setState({subpage});
   }
 
@@ -96,6 +97,8 @@ class Blog extends React.Component{
   blog1 = <div>wakaran</div>
   
   render(){
+    console.log("hey")
+    console.log(this.state.subpage)
     return(
       <div>
         <h1>Blog</h1>
@@ -105,8 +108,8 @@ class Blog extends React.Component{
           </div>
           <div>
             <ul>
-              <li><LoadBlogButton text="Hello my blog!" subContents={this.blog1} url="http://localhost:3020/api" onChange={this.handleSubpageChange} /></li>
-              <li><LoadBlogButton text="react is very fun!" subContents={this.blog2} onChange={this.handleSubpageChange} /></li>
+              <li><LoadBlogButton text="Hello my blog!" url="http://localhost:3020/api" onChange={this.handleSubpageChange} /></li>
+              <li><LoadBlogButton text="react is very fun!" onChange={this.handleSubpageChange} /></li>
             </ul>
           </div>
         </div>
@@ -132,10 +135,6 @@ function BlogContents(text2){
     )
   })
 }
-
-
-
-
 
 class LoadPageButton extends React.Component {
   constructor(props) {
@@ -163,17 +162,19 @@ class LoadBlogButton extends React.Component {
   }
   
 
-  handleClick(e) {
-    fetch("http://localhost:3020/api", {
-      mode: 'cors'
-    })
+  //Buttonを押すと、サーバーからブログ内容が読み込まれる。
+  async handleClick(e) {
+      fetch("http://localhost:3020/api", {
+        mode: 'cors'
+      })
       .then((response) => {
-          return response.text();
+           return response.text();
       })
       .then((mytext) => {
+          //これは１回目でいける。
           this.setState({subContents: mytext});
+          this.props.onChange(this.state.subContents);
       });
-      this.props.onChange(this.props.subContents);
       e.preventDefault();
   }
 
@@ -181,7 +182,6 @@ class LoadBlogButton extends React.Component {
     return (
       <div>
         <input type="button" class="btn-square-pop" value={this.props.text} onClick={this.handleClick}/>
-        {this.state.subContents}
       </div>
     );
   }
