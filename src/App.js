@@ -118,7 +118,6 @@ class Blog extends React.Component{
   }
 }
 
-//関数じゃないとだめ
 function ConvertBlog(text){
       return(
         <div>
@@ -155,7 +154,9 @@ class LoadBlogButton extends React.Component {
 
   //Buttonを押すと、サーバーからブログ内容が読み込まれる。
   async handleClick(e) {
-      fetch("http://localhost:3020/api", {
+      //laisa/server.jsをnodejsで動かしてからアクセス
+      const url = "https://laisa.info/api/blog";
+      fetch(url, {
         mode: 'cors'
       })
       .then((response) => {
