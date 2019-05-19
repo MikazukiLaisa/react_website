@@ -1,7 +1,11 @@
 // express
 const express = require('express');
-const fs = require("fs");
+var http = require('http');
 const app = express();
+
+// socket.ioをrequire
+var server = http.createServer(app);
+var io = require('socket.io').listen(server);
 
 const PORT = process.env.PORT || 3000
 
@@ -21,7 +25,24 @@ app.get('/blog', (req, res) => {
   console.log("get request accept")
   //res.send("Hello world from server")
   const path = "blogs/" + blog;
-  res.send(read(path));
+  res.send(null);
+});
+
+app.get("/chat", (req, res) => {
+
+})
+
+// クライアントが接続してきたときの処理
+//どこのURLにコネクションしてるんですか？
+io.sockets.on('connection', function(socket) { //2
+    console.log('connection');
+    socket.on('message', function(data) { //4
+        console.log('message');
+        io.sockets.emit('message', { value: data.value });
+    });
+    socket.on('disconnect', function() {
+    console.log('disconnect');
+  });
 });
 
 
@@ -30,22 +51,3 @@ app.get('/blog', (req, res) => {
 app.listen(PORT, () => {
  console.log('Example app listening on port '+PORT+' !');
 });
-
-function read(filePath) {
-  var content = new String();
-  if(check(filePath)) {;
-    content = fs.readFileSync(filePath, 'utf8');
-  }
-  return content;
-};
-
-function check(filePath) {
-  var isExist = false;
-  try {
-    fs.statSync(filePath);
-    isExist = true;
-  } catch(err) {
-    isExist = false;
-  }
-  return isExist;
-}

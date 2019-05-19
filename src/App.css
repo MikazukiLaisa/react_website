@@ -16,7 +16,7 @@
   align-items: center;
   justify-content: center;
   font-size: calc(10px + 2vmin);
-  color: white;
+  color: #f5f5f5;
 }
 
 .App-link {
@@ -30,6 +30,10 @@
   to {
     transform: rotate(360deg);
   }
+}
+
+body {
+  background-color: #f5f5f5
 }
 
 .Blog-display {
@@ -55,25 +59,6 @@
   box-shadow: 0 0 2px rgba(0, 0, 0, 0.30);
 }
 
-ul {
-  padding: 0;
-  position: relative;
-}
-
-ul li {
-  color: white;
-  background: #81d0cb;
-  line-height: 1.5;
-  padding: 0.5em 0.5em 0.5em 2em;
-  border-bottom: 2px solid white;
-  list-style-type: none!important;
-  font-weight: bold; /*好みで太字に*/
-}
-
-ul li:before {
-  font-family: "Font Awesome 5 Free";
-  content: "\f14a";
-  position: absolute;
-  left : 0.5em; /*左端からのアイコンまでの距離*/
-  color: white; /*アイコン色*/
+ul.blogselect {
+  list-style: none;
 }

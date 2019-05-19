@@ -49,8 +49,7 @@ function Home(){
   return(
     <div>
       <h1>Home</h1>
-      <a>welcome to my new website!</a><br />
-      <a>上のボタンを押したら、検証からどこが変化しているのか確認できるよ！</a>
+      <a>welcome to my new website!</a>
     </div>
   );
 }
@@ -90,12 +89,6 @@ class Blog extends React.Component{
     this.setState({subpage});
   }
 
-  //ここでクラスで呼ぶと、１つしか生成されない
-  // blog1 = BlogContents("this is blog#1");
-  // blog2 = BlogContents("this is blog#2");
-
-  blog1 = <div>wakaran</div>
-  
   render(){
     console.log("hey")
     console.log(this.state.subpage)
@@ -107,9 +100,9 @@ class Blog extends React.Component{
             {this.state.subpage}
           </div>
           <div>
-            <ul>
-              <li><LoadBlogButton text="Hello my blog!" url="http://localhost:3020/api" onChange={this.handleSubpageChange} /></li>
-              <li><LoadBlogButton text="react is very fun!" onChange={this.handleSubpageChange} /></li>
+            <ul class="blogselect">
+              <li><LoadBlogButton text="Hello my blog!" blog="portforward -r.txt" onChange={this.handleSubpageChange} /></li>
+              <li><LoadBlogButton text="react is very fun!" blog="webcam openclose.txt" onChange={this.handleSubpageChange} /></li>
             </ul>
           </div>
         </div>
@@ -155,7 +148,9 @@ class LoadBlogButton extends React.Component {
   //Buttonを押すと、サーバーからブログ内容が読み込まれる。
   async handleClick(e) {
       //laisa/server.jsをnodejsで動かしてからアクセス
-      const url = "https://laisa.info/api/blog";
+      const baseurl = "https://laisa.info/api/blog";
+      const blog = encodeURIComponent(this.props.blog);
+      const url = baseurl+"?blog="+blog;
       fetch(url, {
         mode: 'cors'
       })

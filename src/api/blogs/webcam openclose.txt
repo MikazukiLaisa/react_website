@@ -1,0 +1,68 @@
+# 内容
+webカメラを使ってサクッと開閉通知を作る。
+
+##環境
+WindowsOS
+Webカメラ
+
+##仕組み
+### OpenCVで、部屋の電気の写真（128px*128px）を撮る
+部屋の電気以外をなるべく写さないのがポイント
+
+```
+c = cv2.VideoCapture(0)
+c.set(3,128)
+c.set(4,128)
+r, img = c.read()
+```
+### 写真のRGBを取得
+
+```
+rgb = cv2.split(img)
+```
+RGBそれぞれ行列で返ってくる。
+### RGBの値の大きさで、しきい値を設定し、それを超えれば、open、下回っていれば、closeにする。
+画像に写っている蛍光灯の部分の1pxを選ぶ。今回は、左から40px、上から40pxの1pxをとってきた。
+~~縦128px、横128pxであることを参考にして、自力で探し出す。~~
+![photo.jpg](https://qiita-image-store.s3.amazonaws.com/0/236125/9d36aac6-e2bf-e1a7-369c-b4f5df3b97eb.jpeg)
+
+
+**（カメラを少しでもズラすと、取るべき1pxが変わってしまうので注意）**
+
+```
+ if(rgb[0][40][40] > 220):
+     print("ROOM is open")
+ else:
+     print("ROOM is closed")
+```
+しきい値は、220とした。
+蛍光灯がついているときは、だいたいrgb[0][40][40]は255に近い値になっている。
+
+###ここまでの処理を任意のペースで繰り返す。
+
+```
+While(True):
+  ---
+  ---
+  time.sleep(60*5)
+```
+
+##全体のコード
+
+```
+While(True):
+  c = cv2.VideoCapture(0)
+  c.set(3,128)
+  c.set(4,128)
+  r, img = c.read()
+  rgb = cv2.split(img)
+   if(rgb[0][40][40] > 220:
+       print("ROOM is open")
+   else:
+       print("ROOM is closed")
+  time.sleep(60*5)
+```
+
+##おわりに
+これをtweepyなどを用いて、Twitterで通知できるようにすれれば完成
+
