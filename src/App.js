@@ -28,6 +28,7 @@ class Main extends React.Component{
   contact = Contact()
   works = Works()
   blog = <Blog />
+  link = Link();
 
   render(){
     return(
@@ -37,6 +38,7 @@ class Main extends React.Component{
         <LoadPageButton text="Contact" mainContents={this.contact} onChange={this.handleMainpageChange} />
         <LoadPageButton text="Works" mainContents={this.works} onChange={this.handleMainpageChange} />
         <LoadPageButton text="Blog" mainContents={this.blog} onChange={this.handleMainpageChange} />
+        <LoadPageButton text="Links" mainContents={this.link} onChange={this.handleMainpageChange} />
         <div>
           {this.state.mainpage}
         </div>
@@ -47,7 +49,7 @@ class Main extends React.Component{
 
 function Home(){
   return(
-    <div>
+    <div class="css-animation">
       <h1>Home</h1>
       <a>welcome to my new website!</a>
     </div>
@@ -75,6 +77,35 @@ function Works(){
       <h1>Works</h1>
     </div>
   );
+}
+function Link(){
+  return(
+    <div>
+        <ul>
+        <li>
+          <a href="https://twitter.com/Mikazuki_Laisa" target="_blank">Twitter</a>
+        </li>
+        <li>
+          <a href="https://www.pixiv.net/member.php?id=8383999" target="_blank">Pixiv</a>
+        </li>
+        <li>
+          <a href="https://qiita.com/Mikazuki_Laisa" target="_blank">Qiita</a>
+        </li>
+        <li>
+          <a href="https://github.com/MikazukiLaisa" target="_blank">github</a>
+        </li>
+        <li>
+          <a href="http://b.hatena.ne.jp/Mikazuki_Laisa/bookmark" target="_blank">bookmark</a>
+        </li>
+        <li>
+            <a href="https://jp.finalfantasyxiv.com/lodestone/character/23125854/" target="_blank">ff14</a>
+        </li>
+        <li>
+          <a href="https://pubg.op.gg/user/LaisaMican" target="_blank">pubg</a>
+      </li>
+      </ul>
+    </div>
+  )
 }
 
 class Blog extends React.Component{
