@@ -41,23 +41,7 @@ body {
   grid-template-columns: 4fr 1fr;
 }
 
-.btn-square-pop {
-  position: relative;
-  display: inline-block;
-  padding: 0.25em 0.5em;
-  text-decoration: none;
-  color: #FFF;
-  background: #fd9535;/*背景色*/
-  border-bottom: solid 2px #d27d00;/*少し濃い目の色に*/
-  border-radius: 4px;/*角の丸み*/
-  box-shadow: inset 0 2px 0 rgba(255,255,255,0.2), 0 2px 2px rgba(0, 0, 0, 0.19);
-  font-weight: bold;
-}
 
-.btn-square-pop:active {
-  border-bottom: solid 2px #fd9535;
-  box-shadow: 0 0 2px rgba(0, 0, 0, 0.30);
-}
 
 ul.blogselect {
   list-style: none;
@@ -76,12 +60,12 @@ ul.blogselect {
   float: left;
   width: 100%;
   /* なんか8.5%ならいい感じになった */
-  margin: 0 8.5%;
+  margin: 0 9.2%;
 }
 
 .on-picture img {
-  width: 300px;
-  height: 300px;
+  width: 270px;
+  height: 270px;
 }
 .on-picture p {
   position: absolute;
@@ -97,7 +81,74 @@ ul.blogselect {
 
 hr {
   border: none;
-  margin: 3em 0;
+  margin: 2.3em 0;
+}
+
+.menubar {
+  background: black;
+  height: 55px;
+  display: flex;
+}
+
+.menubar-name {
+  position: relative;
+  display: inline-block;
+  font-size: 18px;
+  padding: 0 100px;
+  color: #FFF;
+
+  background-color: transparent;
+  border: none;
+  outline: none;
+  appearance: none;
+}
+
+.menubar-button {
+  position: relative;
+  float: left;
+  font-weight: Italic;
+  font-size: 1.2em;
+  padding: 0px 40px;
+  color: #FFF;
+  transition: .1s;
+
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  outline: none;
+  appearance: none;
+}
+
+.menubar-sns {
+  margin: 0 30px;
+}
+
+.menubar-sns-button {
+  position: relative;
+  float: left;
+  background-color:white;
+  border: none;
+  cursor: pointer;
+  outline: none;
+  appearance: none;
+  width: 42px;
+  height: 42px;
+  margin: 8px 10px;
+  border-radius: 30%;
+}
+
+.menubar-sns img {
+  width: 78%;
+  margin: 11% 11%;
+}
+
+.menubar-button p {
+  display: inline-block;
+  border-bottom: solid 2px #FFF;
+}
+
+.menubar-button:focus {
+	outline:0;
 }
 
 

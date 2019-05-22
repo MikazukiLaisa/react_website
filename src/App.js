@@ -41,12 +41,19 @@ class Main extends React.Component{
   render(){
     return(
       <div>
+      <div class="menubar">
+        <p class="menubar-name">Mikazuki_Laisa</p>
         <LoadPageButton text="Home" mainContents={this.home} onChange={this.handleMainpageChange} />
         <LoadPageButton text="Profile" mainContents={this.profile} onChange={this.handleMainpageChange} />
         <LoadPageButton text="Contact" mainContents={this.contact} onChange={this.handleMainpageChange} />
         <LoadPageButton text="Works" mainContents={this.works} onChange={this.handleMainpageChange} />
         <LoadPageButton text="Blog" mainContents={this.blog} onChange={this.handleMainpageChange} />
         <LoadPageButton text="Links" mainContents={this.link} onChange={this.handleMainpageChange} />
+        <div class="menubar-sns">
+          <Button css="menubar-sns-button" link="https://twitter.com/?lang=ja" img={twitter}/>
+          <Button css="menubar-sns-button" link="https://github.com/MikazukiLaisa" img={github} />
+        </div>
+        </div>
         <div>
           {this.state.mainpage}
         </div>
@@ -58,13 +65,13 @@ class Main extends React.Component{
 function Home(){
   return(
     <div>
-      <h1>Home</h1>
+      <hr />
       <img src={home01} alt="mican" class="center" />
       <hr />
       <div class="box-container">
-        <News link="https://github.com/MikazukiLaisa" img={github} text="Githubが更新されました"/>
-        <News link="https://reactjs.org/" img={react} text="Reactは健康にいい"/>
-        <News link="https://twitter.com/?lang=ja" img={twitter} text="Twitterが更新されました"/>
+        <Button css="on-picture" link="https://github.com/MikazukiLaisa" img={github} text="Githubが更新されました"/>
+        <Button css="on-picture" link="https://reactjs.org/" img={react} text="Reactは健康にいい"/>
+        <Button css="on-picture" link="https://twitter.com/?lang=ja" img={twitter} text="Twitterが更新されました"/>
       </div>
     </div>
   )
@@ -182,7 +189,12 @@ class LoadPageButton extends React.Component {
 
   render() {
     return (
-       <input type="button" class="btn-square-pop" value={this.props.text} onClick={this.handleClick}/>
+      <div>
+        <button class="menubar-button" value={this.props.text} onClick={this.handleClick}>
+         <p>{this.props.text}</p>
+        </button>
+      </div>
+
     );
   }
 }
@@ -220,7 +232,7 @@ class LoadBlogButton extends React.Component {
   render() {
     return (
       <div>
-        <input type="button" class="btn-square-pop" value={this.props.text} onClick={this.handleClick}/>
+        <input type="button" class="btn-square-pop" value={this.props.text} onClick={this.handleClick} />
       </div>
     );
   }
@@ -234,10 +246,23 @@ class News extends React.Component{
     return(
         <div class="on-picture">
         <a href={this.props.link}>
-         <img src={this.props.img} alt="mican" class="news-picture" />
+         <img src={this.props.img} alt="mican" />
          <p>{this.props.text}</p>
          </a>
        </div>
+    )
+  }
+}
+
+class Button extends React.Component{
+  render(){
+    return(
+      <div class={this.props.css}>
+      <a href={this.props.link}>
+      <img src={this.props.img} alt={this.props.alt}/>
+      <p>{this.props.text}</p>
+      </a>
+    </div>
     )
   }
 }
