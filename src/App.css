@@ -62,6 +62,45 @@ body {
 ul.blogselect {
   list-style: none;
 }
+.center {
+  /* ここを足して100になるようにすればok */
+  width: 80%;
+  margin: 0 10%;
+}
+
+.box-container{
+  display: flex;
+}
+.on-picture {
+  position: relative;
+  float: left;
+  width: 100%;
+  /* なんか8.5%ならいい感じになった */
+  margin: 0 8.5%;
+}
+
+.on-picture img {
+  width: 300px;
+  height: 300px;
+}
+.on-picture p {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translate(-50%,-50%);
+  margin: 0;
+  padding: 0;
+  font-size: 20px;
+  color: white;
+  background: rgba(0, 0, 0, 0.30);
+}
+
+hr {
+  border: none;
+  margin: 3em 0;
+}
+
+
 
 /* .css-animation {
   overflow-x: hidden;

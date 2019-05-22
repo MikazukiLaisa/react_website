@@ -4,6 +4,12 @@ import './App.css';
 import { homedir } from 'os';
 import remark from 'remark'
 import reactRenderer from 'remark-react'
+import home01 from "./resources/home01.png"
+import react from "./resources/react.png"
+import github from "./resources/github.png"
+import twitter from "./resources/twitter.png"
+import { SSL_OP_CRYPTOPRO_TLSEXT_BUG } from 'constants';
+import { newExpression } from '@babel/types';
 
 
 function App() {
@@ -16,7 +22,8 @@ class Main extends React.Component{
   constructor(props) {
     super(props);
     this.handleMainpageChange = this.handleMainpageChange.bind(this);
-    this.state = {mainpage: "hoge", text: "# Hello world"}
+    this.state = {mainpage: Home(), text: "# Hello world"}
+    
   }
 
   handleMainpageChange(mainpage) {
@@ -29,6 +36,7 @@ class Main extends React.Component{
   works = Works()
   blog = <Blog />
   link = Link();
+
 
   render(){
     return(
@@ -49,17 +57,28 @@ class Main extends React.Component{
 
 function Home(){
   return(
-    <div class="css-animation">
+    <div>
       <h1>Home</h1>
-      <a>welcome to my new website!</a>
+      <img src={home01} alt="mican" class="center" />
+      <hr />
+      <div class="box-container">
+        <News link="https://github.com/MikazukiLaisa" img={github} text="Githubが更新されました"/>
+        <News link="https://reactjs.org/" img={react} text="Reactは健康にいい"/>
+        <News link="https://twitter.com/?lang=ja" img={twitter} text="Twitterが更新されました"/>
+      </div>
     </div>
-  );
+  )
 }
+
+
+
 function Profile(){
   return(
     <div>
       <h1>Profile</h1>
-      <a>name: Mikazuki_Laisa</a>
+      <p>Mikazuki Laisa</p>
+      <p>お絵かきとプログラミングやってます。</p>
+      <p>React, nginx, unity</p>
     </div>
   );
 }
@@ -204,6 +223,22 @@ class LoadBlogButton extends React.Component {
         <input type="button" class="btn-square-pop" value={this.props.text} onClick={this.handleClick}/>
       </div>
     );
+  }
+}
+
+class News extends React.Component{
+  constructor(props){
+    super(props);
+  }
+  render(){
+    return(
+        <div class="on-picture">
+        <a href={this.props.link}>
+         <img src={this.props.img} alt="mican" class="news-picture" />
+         <p>{this.props.text}</p>
+         </a>
+       </div>
+    )
   }
 }
 
