@@ -48,7 +48,9 @@ ul.blogselect {
 }
 .center {
   /* ここを足して100になるようにすればok */
-  width: 80%;
+  /* width: 80%; */
+  width: 500px;
+  height: 500px;
   margin: 0 10%;
 }
 
@@ -58,14 +60,24 @@ ul.blogselect {
 .on-picture {
   position: relative;
   float: left;
-  width: 100%;
+  /* imgのところとサイズをあわせる */
+  width: 280px;
+  height: 280px;
   /* なんか8.5%ならいい感じになった */
-  margin: 0 9.2%;
+  margin: 0 150px;
+  border-radius: 20px;
+  overflow: hidden;
+  /* backgroundの指定 */
+  /* background-color: #61dafb;
+  background-image: url(./resources/home01.png);
+  background-size: 260px 260px;
+  background-position: center;
+  background-repeat: no-repeat; */
 }
 
 .on-picture img {
-  width: 270px;
-  height: 270px;
+  width: 280px;
+  height: 280px;
 }
 .on-picture p {
   position: absolute;
@@ -151,6 +163,13 @@ hr {
 	outline:0;
 }
 
+.profile {
+  
+}
+.profile-contents img {
+  position: relative;
+  float: left;
+}
 
 
 /* .css-animation {

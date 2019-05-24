@@ -8,6 +8,7 @@ import home01 from "./resources/home01.png"
 import react from "./resources/react.png"
 import github from "./resources/github.png"
 import twitter from "./resources/twitter.png"
+import laisaIcon from "./resources/laisaIcon.png"
 import { SSL_OP_CRYPTOPRO_TLSEXT_BUG } from 'constants';
 import { newExpression } from '@babel/types';
 
@@ -83,9 +84,14 @@ function Profile(){
   return(
     <div>
       <h1>Profile</h1>
-      <p>Mikazuki Laisa</p>
-      <p>お絵かきとプログラミングやってます。</p>
-      <p>React, nginx, unity</p>
+      <div class="profile">
+       <div class="profile-contents">
+        <img src={laisaIcon} />
+          <p>Mikazuki Laisa</p>
+          <p>お絵かきとプログラミングやってます。</p>
+          <p>React, nginx, unity</p>
+        </div>
+      </div>
     </div>
   );
 }
